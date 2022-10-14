@@ -34,28 +34,34 @@ python train.py
   -ssz SUPPORT_SET_SIZE, --support_set_size SUPPORT_SET_SIZE
                         support size per gpu
   -epochs EPOCHS, --epochs EPOCHS
-                        epochs
   -cluster_size AVG_CLUSTER_SIZE, --avg_cluster_size AVG_CLUSTER_SIZE
                         avg_cluster_size
   -lr LR, --lr LR       learning rate
-  -ptmlr PTMLR, --ptmlr PTMLR
+  -ptmlr PTMLR, --ptmlr PTMLR 
                         ptm learning rate
-  -tsk TASK_NAME, --task_name TASK_NAME, it can be meld, iemocap and emorynlp
+  -tsk TASK_NAME, --task_name TASK_NAME
+                        it can be meld, iemocap and emorynlp
   -wp WARM_UP, --warm_up WARM_UP
   -dpt DROPOUT, --dropout DROPOUT
   -temp TEMPERATURE, --temperature TEMPERATURE
   -bert_path BERT_PATH, --bert_path BERT_PATH
-  -train_obj TRAIN_OBJ, --train_obj TRAIN_OBJ it can be spcl, spdcl or ce
+  -train_obj TRAIN_OBJ, --train_obj TRAIN_OBJ 
+                        it can be spcl, spdcl or ce
   -data_path DATA_PATH, --data_path DATA_PATH
   -temp_path TEMP_PATH, --temp_path TEMP_PATH
   -acc_step ACCUMULATION_STEPS, --accumulation_steps ACCUMULATION_STEPS
   
 ```
 
-e.g., to train and eval the model on ```MELD``` dataset, 
+to train and eval the model, 
 
 ```bash
-python train.py -tr -wp 128 -epochs 16 -temp 0.05 -tsk (meld|iemocap|emorynlp) -psz 256 -ssz 64 -train_obj (spcl|spdcl|ce) -cl -seed 2333
+python train.py -tr -wp 128 -epochs 16 -temp 0.05 -tsk meld|iemocap|emorynlp -psz 256 -ssz 64 -train_obj spcl|spdcl|ce -cl -seed 2333
+```
+e.g., to train the model on the meld dataset via spcl,
+
+```bash
+python train.py -tr -wp 128 -epochs 16 -temp 0.05 -tsk meld -psz 256 -ssz 64 -train_obj spcl -cl -seed 2333
 ```
 
 #### key args
