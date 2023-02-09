@@ -146,6 +146,7 @@ def train(model, train_dialogues, dev_dialogues, test_dialogues):
     optimizer = torch.optim.AdamW(
         get_paramsgroup(
             model.module if hasattr(model, 'module') else model))
+    checkpoint_saver = FGM(model)
     # train
     best_f1 = -1
     epochs_not_update = 0
@@ -196,9 +197,12 @@ def train(model, train_dialogues, dev_dialogues, test_dialogues):
                               centers_mask,
                               desc='new best test @ epoch {}'.format(
                                   epoch - 1))
+                    # checkpoint_saver.save_checkpoint()
                 else:
                     epochs_not_update += 1
-                if epochs_not_update >= 3:
+                    # checkpoint_saver.load_checkpoint()
+                    torch.cuda.empty_cache()
+                if epochs_not_update >= 5:
                     break
 
             selection, cluster_idxs = gen_cl_data(all_reps,
@@ -544,7 +548,7 @@ if __name__ == '__main__':
             temp_path = tempfile.mkdtemp(dir='/test/diyi/temp')
         else:
             temp_path = '/test/diyi/temp'
-    CONFIG['temp_path'] = temp_path
+        CONFIG['temp_path'] = temp_path
     CONFIG['emotion_vocab'] = CONFIG['temp_path'] + '/vocabs/emotion_vocab.pkl'
 
     if args.local_rank in [-1, 0]:
@@ -617,8 +621,9 @@ if __name__ == '__main__':
         train(model, train_dialogues, dev_dialogues, test_dialogues)
     if args.test:
         if args.task_name == 'emorynlp':
-            testset = load_emorynlp_turn(test_data_path)
+            test_dialogues = load_emorynlp_turn(test_data_path)
         if args.task_name == 'meld':
-            testset = load_meld_turn(test_data_path)
+            test_dialogues = load_meld_turn(test_data_path)
+        testset = build_dataset(test_dialogues)
         best_f1 = test(model, testset, centers, centers_mask)
         print(best_f1)

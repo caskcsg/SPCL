@@ -81,3 +81,14 @@ class FGM():
                 assert name in self.backup
                 param.data = self.backup[name]
         self.backup = {}
+    
+    def save_checkpoint(self):
+        for name, param in self.model.named_parameters():
+            if param.requires_grad:
+                self.backup[name] = param.data.clone()
+    def load_checkpoint(self):
+        for name, param in self.model.named_parameters():
+            if param.requires_grad:
+                param.data = self.backup[name]
+    
+    

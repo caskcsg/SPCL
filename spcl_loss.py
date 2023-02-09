@@ -18,12 +18,6 @@ class SupProtoConLoss(nn.Module):
     
     def forward(self, reps, labels, decoupled=False):
         batch_size = reps.shape[0]
-        # update representations pools
-        for idx in range(batch_size):
-            label = labels[idx].item()
-            self.pools[label].append(reps[idx].detach())
-            random.shuffle(self.pools[label])
-            self.pools[label] = self.pools[label][-self.pool_size:]
         curr_centers = []
         pad_labels = []
         # calculate temporary centers
@@ -40,6 +34,13 @@ class SupProtoConLoss(nn.Module):
                 pad_labels.append(idx)
         curr_centers = torch.stack(curr_centers, 0)
         pad_labels = torch.LongTensor(pad_labels).to(reps.device)
+        
+        # update representations pools
+        for idx in range(batch_size):
+            label = labels[idx].item()
+            self.pools[label].append(reps[idx].detach())
+            random.shuffle(self.pools[label])
+            self.pools[label] = self.pools[label][-self.pool_size:]
         
         concated_reps = torch.cat((reps, curr_centers), 0)
         concated_labels = torch.cat((labels, pad_labels), 0)
