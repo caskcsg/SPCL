@@ -74,7 +74,7 @@ class SupProtoConLoss(nn.Module):
             probs = pos_scores.sum(-1)/(pos_scores.sum(-1) + neg_scores.sum(-1))
             probs /= (pos_mask * mask).sum(-1) + self.eps
             loss = - torch.log(probs + self.eps)
-            loss_mask = (loss > 0.3).long()
+            loss_mask = (loss > 0).long()
             loss = (loss * loss_mask).sum() / (loss_mask.sum().item() + self.eps)
             # loss = loss.mean()
         return loss

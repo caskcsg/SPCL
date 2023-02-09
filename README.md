@@ -1,5 +1,8 @@
 ### Code for EMNLP2022 paper "Supervised Prototypical Contrastive Learning for Emotion Recognition in Conversation"
 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/supervised-prototypical-contrastive-learning/emotion-recognition-in-conversation-on-4)](https://paperswithcode.com/sota/emotion-recognition-in-conversation-on-4?p=supervised-prototypical-contrastive-learning)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/supervised-prototypical-contrastive-learning/emotion-recognition-in-conversation-on-meld)](https://paperswithcode.com/sota/emotion-recognition-in-conversation-on-meld?p=supervised-prototypical-contrastive-learning)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/supervised-prototypical-contrastive-learning/emotion-recognition-in-conversation-on)](https://paperswithcode.com/sota/emotion-recognition-in-conversation-on?p=supervised-prototypical-contrastive-learning)
 
 #### Overview
 
